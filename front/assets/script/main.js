@@ -1,17 +1,19 @@
-const uri = "http://localhost:3000/pontosturisticos";
+const uri = "http://localhost:3000/destinos";
+const uriTuristico = "http://localhost:3000/pontosturisticos";
 const msgs = document.getElementById('msgs');
 const tableBody = document.getElementById("dados");
 
-// READ - pontosTuristicos
-fetch(uri)
+
+// READ - destinos
+fetch(uriTuristico + '/' + id)
   .then((res) => {
     if (!res.ok) {
-      throw new Error("Erro ao obter pontosTuristicos: " + res.status);
+      throw new Error("Erro ao obter destinos: " + res.status);
     }
     return res.json();
   })
-  .then((pontosTuristicos) => {
-    pontosTuristicos.forEach((cli) => {
+  .then((turistico) => {
+    turistico.forEach((cli) => {
       const row = document.createElement("tr");
       row.innerHTML = `
       <td>${cli.id}</td>
@@ -20,30 +22,106 @@ fetch(uri)
       <td>${cli.endereco}</td>
       <td>${cli.telefone}</td>
       <td>${cli.valor}</td>
-      <td>
-          <button onclick='del("${cli.id}")'><ion-icon class="icon" name="trash-outline"></ion-icon></button>
-          <button onclick='edit(this)'><ion-icon class="icon" name="create-outline"></ion-icon></button>
-      </td>
       `;
       tableBody.appendChild(row);
     });
   })
   .catch((error) => {
-    console.error("Erro ao obter pontosTuristicos:", error);
-    mensagens("Erro ao obter pontosTuristicos!");
+    console.error("Erro ao obter destinos:", error);
+    mensagens("Erro ao obter destinos!");
   });
 
-// CREATE - pontosTuristicos
+
+// CARD
+  fetch(uri)
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Erro ao obter destinos: " + res.status);
+    }
+    return res.json();
+  })
+  .then((destinos) => {
+    // Suponha que o card tenha id "card"
+    const card = document.getElementById("card");
+
+    // Suponha que os elementos no card tenham id correspondente aos campos dos destinos
+    const idElement = document.getElementById("id");
+    const cidadeElement = document.getElementById("cidade");
+    const valorElement = document.getElementById("valor");
+    const dataElement = document.getElementById("data");
+
+    destinos.forEach((cli) => {
+      // Atualiza o conteúdo dos elementos do card com os dados dos destinos
+      idElement.innerHTML = ` ${cli.id}`;
+      cidadeElement.innerHTML = ` ${cli.cidade}`;
+      valorElement.innerHTML = ` ${cli.valor}`;
+      dataElement.innerHTML = ` ${cli.data}`;
+    });
+  })
+  .catch((error) => {
+    console.error("Erro ao obter destinos:", error);
+    mensagens("Erro ao obter destinos!");
+  });
+
+
+  // CREATE CARDS
+
+  fetch(uri)
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Erro ao obter destinos: " + res.status);
+    }
+    return res.json();
+  })
+  .then((destinos) => {
+    const cardsContainer = document.getElementById("cards-container");
+
+    destinos.forEach((cli) => {
+      // Cria um elemento div para o card
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      // Adiciona o conteúdo do card
+      card.innerHTML = `
+        <div class="card2" id="card-info">
+        <h3>Destinos</h3>
+        <p>ID: ${cli.id}</p>
+        <p>Cidade: ${cli.cidade}</p>
+        <p>Valor: ${cli.valor}</p>
+        <p>Data: ${cli.data}</p>
+        <div class="card-buttons">
+        <button onclick="openDialog('contact')"><ion-icon class="icon" name="trash-outline"></ion-icon></button>
+        <button onclick="openDialog('contact')"><ion-icon class="icon" name="create-outline"></ion-icon></button>
+        </div>
+        </div>
+      `;
+
+      // Adiciona o card ao container de cards
+      cardsContainer.appendChild(card);
+    });
+  })
+  .catch((error) => {
+    console.error("Erro ao obter destinos:", error);
+    mensagens("Erro ao obter destinos!");
+  });
+
+
+
+
+
+
+
+// CREATE - destinos
 const criarForm = document.getElementById("criar");
 
 criarForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = {
-    id_destinos: criarForm.id_destinos.value,
-    nome: criarForm.nome.value,
-    endereco: criarForm.endereco.value,
-    telefone: criarForm.telefone.value,
-    valor: criarForm.valor.value
+    id: criarForm.id.valueOf,
+    cidade: criarForm.cidade.value,
+    valor: criarForm.valor.value,
+    data: criarForm.data.value,
+    
   };
 
   fetch(uri, {
@@ -69,7 +147,7 @@ criarForm.addEventListener("submit", (e) => {
   });
 });
 
-// UPDATE - pontosTuristicos
+// UPDATE - destinos
 function update(btn) {
   const row = btn.closest('tr');
   const cells = row.cells;
@@ -103,7 +181,7 @@ function update(btn) {
   });
 }
 
-// DELETE - pontosTuristicos
+// DELETE - destinos
 function del(cpf) {
   fetch(uri + '/' + cpf, {
     method: 'DELETE'
@@ -186,4 +264,57 @@ function edit(btn) {
   }
   btn.innerHTML = '<ion-icon class="icon" name="checkmark-outline"></ion-icon>';
   btn.setAttribute('onclick', 'update(this)');
+}
+
+
+// OPEN MODAL 
+
+const dialog = document.querySelectorAll('.dialog');
+
+dialog.forEach((dialog) => {
+    dialog.addEventListener('click', (event) => {
+        if(event.target.classList.contains('contactDialog')) {
+            closeDialog('contact');
+        }else if(event.target.classList.contains('matriculaDialog')) {
+            closeDialog('matricula');
+        }
+    });
+})
+
+
+function openDialog(e) {
+
+    let dialog
+
+    if(e == 'contact') {
+        dialog = document.querySelector('.contactDialog');
+    }else {
+        dialog = document.querySelector('.matriculaDialog');
+    }
+
+    dialog.classList.remove('hidden');
+
+    dialog.querySelector('div').style.animation = 'openDialog 0.5s forwards';
+
+    setTimeout(() => {
+        dialog.style.animation = 'none';
+    }, 500);
+}
+
+function closeDialog(e) {
+    let dialog
+
+    if(e == 'contact') {
+        dialog = document.querySelector('.contactDialog');
+    } else {
+        dialog = document.querySelector('.matriculaDialog');
+    }
+
+    dialog.style.animation = 'closeDialog 0.5s forwards';
+
+
+    setTimeout(() => {
+        dialog.style.animation = 'none';
+        dialog.classList.add('hidden');
+    }, 500);
 }

@@ -21,6 +21,18 @@ const read = async (req, res) => {
     res.status(200).json(pontosTuristicos).end();
 }
 
+const readById = async (req, res) => {
+    const pontosTuristicos = await prisma.pontosTuristicos.findUnique({
+        where : {
+            id : Number(req.params.id)
+        },
+        include : {
+            hoteis: true,
+            pontoTuristico: true
+        }
+    });
+}
+
 const remove = async (req, res) => {
     const pontosTuristicos = await prisma.pontosTuristicos.delete({
         where: {
@@ -50,6 +62,7 @@ const update = async (req, res) => {
 module.exports = {
     create,
     read,
+    readById,
     remove,
     update
 }

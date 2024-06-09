@@ -22,71 +22,73 @@
 
     <main>
 
-        <table class="container">
-            <thead>
-                <tr>
-
-                    <th>Id</th>
-                    <th>Id Destinos</th>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Telefone</th>
-                    <th>Valor</th>
-                    <th>Excluir e Alterar</th>
-             
-                </tr>
-            </thead>
-            <tbody id="dados">
-            </tbody>
-        </table>
-
-
-        <div class="card">
-            <div class="card2">
-                <form action="" id="criar">
-
-                    <div class="input-group">
-                        <input required="" type="number" name="id_destinos" autocomplete="off" class="input">
-                        <label class="user-label">Id Destinos</label>
-                      </div>
-
-                      <div class="input-group">
-                        <input required="" type="text" name="nome" autocomplete="off" class="input">
-                        <label class="user-label">Nome</label>
-                      </div>
-
-                      <div class="input-group">
-                        <input required="" type="text" name="endereco" autocomplete="off" class="input" >
-                        <label class="user-label">Endereço</label>
-                      </div>
-
-                      <div class="input-group">
-                        <input required="" type="text" name="telefone" autocomplete="off" class="input" >
-                        <label class="user-label">Telefone</label>
-                      </div>
-
-                      <div class="input-group">
-                        <input required="" type="text" name="Valor" autocomplete="off" class="input" >
-                        <label class="user-label">Valor</label>
-                      </div>
-
-                      <button type="submit">
-                        Click me
-                    </button>
-
-                    
-                </form>
-            </div>
+      <div id="cards-container">
+          <div id="card" id="card-info">
           </div>
+      </div>
+      </div>
 
-    </main>
+      <div class="dialog contactDialog hidden">
+        <div class="dialog-content">
+            <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
+            <!-- <h1>Pontos Turisticos</h1> -->
+            <table>
+              <caption>Pontos Turisticos</caption>
+              <thead>
+                <th>Id</th>
+                <th>Id Destinos</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>Valor</th>
+              </thead>
+              <tbody id="dados">
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    
+
+</main>
 
     <footer>
-        
+      <div class="card">
+        <div class="card2">
+            <form action="" id="criar">
+
+                <div class="input-group">
+                    <input required="" type="number" name="id" autocomplete="off" class="input">
+                    <label class="user-label">Id </label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                    <label class="user-label">cidade</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="valor" autocomplete="off" class="input" >
+                    <label class="user-label">Valor</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="data" autocomplete="off" class="input" id="dataInput">
+                    <label class="user-label">Data</label>
+                  </div>
+
+                  <button type="submit">
+                    Click me
+                </button>
+            </form>
+        </div>
+      </div>
     </footer>
     
 </body>
-<!-- <script>
+<script>
     document.getElementById('dataInput').addEventListener('input', function() {
   var data = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
   if(data.length > 8) {
@@ -97,6 +99,6 @@
   data = data.replace(/^(\d{2})\/(\d{2})(\d{4})$/, '$1/$2/$3'); // Formata para o formato dd/mm/aaaa
   this.value = data;
 });
-</script> -->
+</script>
 <script src="assets/script/main.js"></script>
 </html>
