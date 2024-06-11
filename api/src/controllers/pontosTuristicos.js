@@ -25,10 +25,6 @@ const readById = async (req, res) => {
     const pontosTuristicos = await prisma.pontosTuristicos.findUnique({
         where : {
             id : Number(req.params.id)
-        },
-        include : {
-            hoteis: true,
-            pontoTuristico: true
         }
     });
 }

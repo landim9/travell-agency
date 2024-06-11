@@ -2,6 +2,7 @@ const uri = "http://localhost:3000/destinos";
 const uriTuristico = "http://localhost:3000/pontosturisticos";
 const msgs = document.getElementById('msgs');
 const tableBody = document.getElementById("dados");
+const id = document.getElementById("id");
 
 
 // READ - destinos
@@ -85,7 +86,7 @@ fetch(uriTuristico + '/' + id)
       card.innerHTML = `
         <div class="card2" id="card-info">
         <h3>Destinos</h3>
-        <p>ID: ${cli.id}</p>
+        <p id="id">${cli.id}</p>
         <p>Cidade: ${cli.cidade}</p>
         <p>Valor: ${cli.valor}</p>
         <p>Data: ${cli.data}</p>
