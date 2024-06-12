@@ -29,7 +29,7 @@ router.put('/hoteis/:id', hoteis.update);
 //Pontos Turisticos
 router.post('/pontosturisticos', pontosTuristicos.create);
 router.get('/pontosturisticos', pontosTuristicos.read);
-router.get('/pontosturisticos/:id', pontosTuristicos.readById);
+router.get('/pontosturisticos/id/:id', pontosTuristicos.readById);
 router.delete('/pontosturisticos/:id', pontosTuristicos.remove);
 router.put('/pontosturisticos/:id', pontosTuristicos.update);
 
