@@ -2,96 +2,112 @@ const uri = "http://localhost:3000/destinos";
 const uriTuristico = "http://localhost:3000/pontosturisticos";
 const msgs = document.getElementById('msgs');
 const tableBody = document.getElementById("dados");
-const id = document.getElementById("id");
+const id = 1;
+let cachedData = null;
+
+
+const fet = `${uriTuristico}/id/${id}`
+
+console.log(fet)
 
 
 // READ - destinos
 
 function fetchTuristico(id, uriTuristico, tableBody) {
+  if (cachedData !== null) {
+    // Se já temos dados em cache, usamos eles
+    processData(cachedData, tableBody);
+    return;
+  }
+
   fetch(`${uriTuristico}/id/${id}`)
-   .then((res) => {
+    .then((res) => {
       if (!res.ok) {
         throw new Error(`Erro ao obter destinos: ${res.status}`);
       }
       return res.json();
     })
-   .then((turistico) => {
-      turistico.forEach((cli) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${cli.id}</td>
-          <td>${cli.id_destinos}</td>
-          <td>${cli.nome}</td>
-          <td>${cli.endereco}</td>
-          <td>${cli.telefone}</td>
-          <td>${cli.valor}</td>
-        `;
-        tableBody.appendChild(row);
-      });
+    .then((data) => {
+      cachedData = data; // Armazenamos os dados em cache
+      processData(data, tableBody);
     })
-   .catch((error) => {
+    .catch((error) => {
       console.error("Erro ao obter destinos:", error);
-      mensagens("Erro ao obter destinos!");
+      alert("Erro ao obter destinos!");
     });
 }
 
-// fetch(uriTuristico + "/id/" + ${id})
-//   .then((res) => {
-//     if (!res.ok) {
-//       throw new Error("Erro ao obter destinos: " + res.status);
-//     }
-//     return res.json();
-//   })
-//   .then((turistico) => {
-//     turistico.forEach((cli) => {
-//       const row = document.createElement("tr");
-//       row.innerHTML = `
-//       <td>${cli.id}</td>
-//       <td>${cli.id_destinos}</td>
-//       <td>${cli.nome}</td>
-//       <td>${cli.endereco}</td>
-//       <td>${cli.telefone}</td>
-//       <td>${cli.valor}</td>
-//       `;
-//       tableBody.appendChild(row);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Erro ao obter destinos:", error);
-//     mensagens("Erro ao obter destinos!");
-//   });
-
-
-// CARD
-  fetch(uri)
-  .then((res) => {
-    if (!res.ok) {
-      throw new Error("Erro ao obter destinos: " + res.status);
-    }
-    return res.json();
-  })
-  .then((destinos) => {
-    // Suponha que o card tenha id "card"
-    const card = document.getElementById("card");
-
-    // Suponha que os elementos no card tenham id correspondente aos campos dos destinos
-    const idElement = document.getElementById("id");
-    const cidadeElement = document.getElementById("cidade");
-    const valorElement = document.getElementById("valor");
-    const dataElement = document.getElementById("data");
-
-    destinos.forEach((cli) => {
-      // Atualiza o conteúdo dos elementos do card com os dados dos destinos
-      idElement.innerHTML = ` ${cli.id}`;
-      cidadeElement.innerHTML = ` ${cli.cidade}`;
-      valorElement.innerHTML = ` ${cli.valor}`;
-      dataElement.innerHTML = ` ${cli.data}`;
-    });
-  })
-  .catch((error) => {
-    console.error("Erro ao obter destinos:", error);
-    mensagens("Erro ao obter destinos!");
+function processData(data, tableBody) {
+  // Processa os dados e adiciona à tabela
+  data.forEach((cli) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${cli.id}</td>
+      <td>${cli.id_destinos}</td>
+      <td>${cli.nome}</td>
+      <td>${cli.endereco}</td>
+      <td>${cli.telefone}</td>
+      <td>${cli.valor}</td>
+    `;
+    tableBody.appendChild(row);
   });
+}
+
+
+  // fetch(`${uriTuristico}/id/${id}`)
+  //  .then((res) => {
+  //     if (!res.ok) {
+  //       throw new Error(`Erro ao obter destinos: ${res.status}`);
+  //     }
+  //     return res.json();
+  //   })
+  //  .then((turistico) => {
+  //     turistico.forEach((cli) => {
+  //       const row = document.createElement("tr");
+  //       row.innerHTML = `
+  //         <td>${cli.id}</td>
+  //         <td>${cli.id_destinos}</td>
+  //         <td>${cli.nome}</td>
+  //         <td>${cli.endereco}</td>
+  //         <td>${cli.telefone}</td>
+  //         <td>${cli.valor}</td>
+  //       `;
+  //       tableBody.appendChild(row);
+  //     });
+  //   })
+  //  .catch((error) => {
+  //     console.error("Erro ao obter destinos:", error);
+  //     alert("Erro ao obter destinos!");
+  //   });
+
+
+// function fetchTuristico(id, uriTuristico, tableBody) {
+//   fetch(`${uriTuristico}/id/${id}`)
+//    .then((res) => {
+//       if (!res.ok) {
+//         throw new Error(`Erro ao obter destinos: ${res.status}`);
+//       }
+//       return res.json();
+//     })
+//    .then((turistico) => {
+//       turistico.forEach((cli) => {
+//         const row = document.createElement("tr");
+//         row.innerHTML = `
+//           <td>${cli.id}</td>
+//           <td>${cli.id_destinos}</td>
+//           <td>${cli.nome}</td>
+//           <td>${cli.endereco}</td>
+//           <td>${cli.telefone}</td>
+//           <td>${cli.valor}</td>
+//         `;
+//         tableBody.appendChild(row);
+//       });
+//     })
+//    .catch((error) => {
+//       console.error("Erro ao obter destinos:", error);
+//       mensagens("Erro ao obter destinos!");
+//     });
+// }
 
 
   // CREATE CARDS
@@ -120,7 +136,7 @@ function fetchTuristico(id, uriTuristico, tableBody) {
         <p>Valor: ${cli.valor}</p>
         <p>Data: ${cli.data}</p>
         <div class="card-buttons">
-        <button onclick="openDialog('contact')">Pontos Turisticos</button>
+        <button onclick="openDialog('contact'); fetchTuristico(); processData();">Pontos Turisticos</button>
         <button onclick="openDialog('contact')">Hoteis</button>
         </div>
         </div>
@@ -234,55 +250,6 @@ function del(cpf) {
 
 
 
-//Mostrar mensagens do sistema
-function mensagens(msg, confirma) {
-  var mensagemElement = document.querySelector('#msg');
-  var cancelaElement = document.querySelector('#cancela');
-  var confirmaElement = document.querySelector('#confirma');
-
-  if (mensagemElement) {
-      mensagemElement.textContent = msg;
-  }
-
-  if (cancelaElement) {
-      cancelaElement.classList.remove('oculto');
-  }
-
-  if (confirmaElement) {
-      if (confirma !== undefined) {
-          confirmaElement.classList.remove('oculto');
-          confirmaElement.addEventListener("click", function() {
-              confirmar(confirma);
-          });
-      } else {
-          confirmaElement.classList.add('oculto');
-      }
-  }
-}
-
-
-document.getElementById('openModalBtn').addEventListener('click', function() {
-  var errorMessages = ["Error 1: Connection lost", "Error 2: Invalid input"];
-  var errorModal = document.getElementById('errorModal');
-  var errorMessagesContainer = document.getElementById('errorMessages');
-  
-  // Clear previous error messages
-  errorMessagesContainer.innerHTML = '';
-  
-  // Populate error messages
-  errorMessages.forEach(function(message) {
-    var errorMessageNode = document.createElement('p');
-    errorMessageNode.textContent = message;
-    errorMessagesContainer.appendChild(errorMessageNode);
-  });
-  
-  // Display modal
-  errorModal.style.display = 'block';
-});
-
-document.querySelector('.close').addEventListener('click', function() {
-  document.getElementById('errorModal').style.display = 'none';
-});
 
 
 //Tornar as células da linha tabela editáveis
