@@ -2,58 +2,12 @@ const uri = "http://localhost:3000/destinos";
 const uriTuristico = "http://localhost:3000/pontosturisticos";
 const msgs = document.getElementById('msgs');
 const tableBody = document.getElementById("dados");
-const id = 1;
-let cachedData = null;
 
 
-const fet = `${uriTuristico}/id/${id}`
 
-console.log(fet)
 
 
 // READ - destinos
-
-function fetchTuristico(id, uriTuristico, tableBody) {
-  if (cachedData !== null) {
-    // Se já temos dados em cache, usamos eles
-    processData(cachedData, tableBody);
-    return;
-  }
-
-  fetch(`${uriTuristico}/id/${id}`)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Erro ao obter destinos: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      cachedData = data; // Armazenamos os dados em cache
-      processData(data, tableBody);
-    })
-    .catch((error) => {
-      console.error("Erro ao obter destinos:", error);
-      alert("Erro ao obter destinos!");
-    });
-}
-
-function processData(data, tableBody) {
-  // Processa os dados e adiciona à tabela
-  data.forEach((cli) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${cli.id}</td>
-      <td>${cli.id_destinos}</td>
-      <td>${cli.nome}</td>
-      <td>${cli.endereco}</td>
-      <td>${cli.telefone}</td>
-      <td>${cli.valor}</td>
-    `;
-    tableBody.appendChild(row);
-  });
-}
-
-
   // fetch(`${uriTuristico}/id/${id}`)
   //  .then((res) => {
   //     if (!res.ok) {
@@ -81,35 +35,6 @@ function processData(data, tableBody) {
   //   });
 
 
-// function fetchTuristico(id, uriTuristico, tableBody) {
-//   fetch(`${uriTuristico}/id/${id}`)
-//    .then((res) => {
-//       if (!res.ok) {
-//         throw new Error(`Erro ao obter destinos: ${res.status}`);
-//       }
-//       return res.json();
-//     })
-//    .then((turistico) => {
-//       turistico.forEach((cli) => {
-//         const row = document.createElement("tr");
-//         row.innerHTML = `
-//           <td>${cli.id}</td>
-//           <td>${cli.id_destinos}</td>
-//           <td>${cli.nome}</td>
-//           <td>${cli.endereco}</td>
-//           <td>${cli.telefone}</td>
-//           <td>${cli.valor}</td>
-//         `;
-//         tableBody.appendChild(row);
-//       });
-//     })
-//    .catch((error) => {
-//       console.error("Erro ao obter destinos:", error);
-//       mensagens("Erro ao obter destinos!");
-//     });
-// }
-
-
   // CREATE CARDS
 
   fetch(uri)
@@ -135,10 +60,6 @@ function processData(data, tableBody) {
         <p>Cidade: ${cli.cidade}</p>
         <p>Valor: ${cli.valor}</p>
         <p>Data: ${cli.data}</p>
-        <div class="card-buttons">
-        <button onclick="openDialog('contact'); fetchTuristico(); processData();">Pontos Turisticos</button>
-        <button onclick="openDialog('contact')">Hoteis</button>
-        </div>
         </div>
       `;
 
@@ -163,7 +84,6 @@ const criarForm = document.getElementById("criar");
 criarForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = {
-    id: criarForm.id.valueOf,
     cidade: criarForm.cidade.value,
     valor: criarForm.valor.value,
     data: criarForm.data.value,

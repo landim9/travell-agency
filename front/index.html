@@ -10,14 +10,13 @@
 
     <header>
         <nav class="nav">
-            <a href="#" class="nav-item is-active" active-color="orange">Home</a>
-            <a href="#" class="nav-item" active-color="green">Criação</a>
-            <a href="#" class="nav-item" active-color="blue">Testimonials</a>
-            <a href="#" class="nav-item" active-color="red">Blog</a>
-            <a href="#" class="nav-item" active-color="rebeccapurple">Contact</a>
-            <span class="nav-indicator"></span>
-          </nav>
-          
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="assets/pages/pontoturistico.html">Pontos Turisticos</a></li>
+            <li><a href="#">Hoteis</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
     </header>
 
     <main>
@@ -32,21 +31,29 @@
         <div class="dialog-content">
             <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
             <!-- <h1>Pontos Turisticos</h1> -->
-            <table>
-              <caption>Pontos Turisticos</caption>
-              <thead>
-                <th>Id</th>
-                <th>Id Destinos</th>
-                <th>Nome</th>
-                <th>Endereço</th>
-                <th>Telefone</th>
-                <th>Valor</th>
-              </thead>
-              <tbody id="dados">
-              </tbody>
-            </table>
+            <form action="" id="criar">
+
+              <div class="input-group">
+                <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                <label class="user-label">cidade</label>
+              </div>
+
+              <div class="input-group">
+                <input required="" type="text" name="valor" autocomplete="off" class="input" >
+                <label class="user-label">Valor</label>
+              </div>
+
+              <div class="input-group">
+                <input required="" type="text" name="data" autocomplete="off" class="input" id="dataInput">
+                <label class="user-label">Data</label>
+              </div>
+
+              <button type="submit">
+                Click me
+            </button>
+        </form>
         </div>
-    </div>
+      </div>
 
 
 
@@ -55,36 +62,7 @@
 </main>
 
     <footer>
-      <div class="card">
-        <div class="card2">
-            <form action="" id="criar">
-
-                <div class="input-group">
-                    <input required="" type="number" name="id" autocomplete="off" class="input">
-                    <label class="user-label">Id </label>
-                  </div>
-
-                  <div class="input-group">
-                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
-                    <label class="user-label">cidade</label>
-                  </div>
-
-                  <div class="input-group">
-                    <input required="" type="text" name="valor" autocomplete="off" class="input" >
-                    <label class="user-label">Valor</label>
-                  </div>
-
-                  <div class="input-group">
-                    <input required="" type="text" name="data" autocomplete="off" class="input" id="dataInput">
-                    <label class="user-label">Data</label>
-                  </div>
-
-                  <button type="submit">
-                    Click me
-                </button>
-            </form>
-        </div>
-      </div>
+      <button onclick="openDialog('contact')"">Criar Novos Destinos</button>
     </footer>
     
 </body>

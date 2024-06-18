@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontos Turisticos</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+    <div class="dialog contactDialog hidden">
+        <div class="dialog-content">
+            <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
+            <div class="alter">
+                <div class="input-group">
+                    <input required="" type="text" name="id_destinos" autocomplete="off" class="input">
+                    <label class="user-label">Id do destino</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="nome" autocomplete="off" class="input">
+                    <label class="user-label">Nome</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="endereco" autocomplete="off" class="input">
+                    <label class="user-label">Endereço</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="telefone" autocomplete="off" class="input">
+                    <label class="user-label">Telefone</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="valor" autocomplete="off" class="input">
+                    <label class="user-label">Valor</label>
+                  </div>
+
+                  <button>Enviar</button>
+            </div>
+
+        </div>
+      </div>
+
+      <div class="dialog contactDialog hidden">
+        <div class="dialog-content">
+            <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
+
+            <div>
+                <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input" value=${cli.id} >
+                    <label class="user-label">Id do destino</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                    <label class="user-label">cidade</label>
+                  </div>
+
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                    <label class="user-label">cidade</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                    <label class="user-label">cidade</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input">
+                    <label class="user-label">cidade</label>
+                  </div>
+                
+            </div>
+            
+        </div>
+      </div>
+
+      <div class="dialog matriculaDialog hidden">
+        <div class="dialog-content">
+            <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('matricula')">X</i>
+
+            <div>
+                
+
+            </div>    
+        </div>
+    </div>
+      
+    <header>
+        <nav class="nav">
+          <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="assets/pages/pontoturistico.html">Pontos Turisticos</a></li>
+            <li><a href="#">Hoteis</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+    </header>
+
+
+    <main>
+        <table>
+            <caption>Pontos Turisticos</caption>
+            <thead>
+              <th>Id</th>
+              <th>Id Destinos</th>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Telefone</th>
+              <th>Valor</th>
+              <th>Alterar</th>
+              <th>Deletar</th>
+            </thead>
+            <tbody id="dados">
+            </tbody>
+          </table>
+
+    </main>
+    
+</body>
+<script src="../script/pontoturistico.js"></script>
+</html>
