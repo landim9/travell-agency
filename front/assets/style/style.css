@@ -16,7 +16,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #5b71af;
     overflow-x: hidden;
-}
+  }
 
 main {
     height: 80vh;
@@ -25,6 +25,7 @@ main {
     grid-template-columns: 15% 85%;
     margin-bottom: 650px;
 }
+
 
 footer {
     width: 100%;
@@ -48,8 +49,7 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-margin: 50px;
-color: #fff;
+    color: #fff;
 }
 .card {
     width: 390px;
@@ -193,10 +193,6 @@ color: #fff;
     }
     
     table td::before {
-      /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
       content: attr(data-label);
       float: left;
       font-weight: bold;
@@ -430,6 +426,7 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -449,17 +446,7 @@ main {
   z-index: 999;
 }
 
-.menu {
-  position: absolute;
-  top: 10vh;
-  width: 70%;
-  height: fit-content;
-  margin: 10px;
-  background-color: var(--media);
-  box-shadow: 1px 1px 5px var(--primaria);
-  border-radius: 10px;
-  padding: 10px;
-}
+
 
 .modalCabecalho {
   display: flex;

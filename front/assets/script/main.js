@@ -4,37 +4,6 @@ const msgs = document.getElementById('msgs');
 const tableBody = document.getElementById("dados");
 
 
-
-
-
-// READ - destinos
-  // fetch(`${uriTuristico}/id/${id}`)
-  //  .then((res) => {
-  //     if (!res.ok) {
-  //       throw new Error(`Erro ao obter destinos: ${res.status}`);
-  //     }
-  //     return res.json();
-  //   })
-  //  .then((turistico) => {
-  //     turistico.forEach((cli) => {
-  //       const row = document.createElement("tr");
-  //       row.innerHTML = `
-  //         <td>${cli.id}</td>
-  //         <td>${cli.id_destinos}</td>
-  //         <td>${cli.nome}</td>
-  //         <td>${cli.endereco}</td>
-  //         <td>${cli.telefone}</td>
-  //         <td>${cli.valor}</td>
-  //       `;
-  //       tableBody.appendChild(row);
-  //     });
-  //   })
-  //  .catch((error) => {
-  //     console.error("Erro ao obter destinos:", error);
-  //     alert("Erro ao obter destinos!");
-  //   });
-
-
   // CREATE CARDS
 
   fetch(uri)
@@ -54,13 +23,66 @@ const tableBody = document.getElementById("dados");
 
       // Adiciona o conteúdo do card
       card.innerHTML = `
+        <div class="modal oculto" id="prof${cli.id}">
+        <div class="janela">
+          <div class="modalCabecalho">
+            <h3>Alterar dados do ponto turistico Id: ${cli.id}</h3>
+            <button onclick="hideModal('prof${cli.id}')" >X</button>
+          </div>
+        <form action="">
+
+                  <div class="input-group">
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input" value="${cli.cidade}">
+                    <label class="user-label">Cidade</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="valor" autocomplete="off" class="input" value="${cli.valor}">
+                    <label class="user-label">Valor</label>
+                  </div>
+
+                  <div class="input-group">
+                    <input required="" type="text" name="data" autocomplete="off" class="input" value="${cli.data}">
+                    <label class="user-label">Data</label>
+                  </div>
+
+                  <button type="submit" value="Alterar ponto turistico" onclick="update(id)">Alterar</button>
+        </form>
+        </div>
+        </div>
+
+        <div class="modal oculto" id="profs${cli.id}">
+        <div class="janela">
+          <div class="modalCabecalho">
+            <h3>Excluir dados do professor Id: ${cli.id}</h3>
+            <button onclick="hideModal('profs${cli.id}')" >X</button>
+          </div>
+          <form action="/professor/${cli.id}?_method=DELETE" method="POST">
+            <div class="deletes">
+              <div class="delete">
+                <label for="">Nome: ${cli.cidade}</label>
+              </div>
+            </div>
+            <input type="hidden" name="id" value="${cli.id}">
+            <button type="submit">Deletar</button>
+          </form>
+        </div>
+      </div>
+      </div>
+
         <div class="card2" id="card-info">
         <h3>Destinos</h3>
         <p id="id">${cli.id}</p>
         <p>Cidade: ${cli.cidade}</p>
         <p>Valor: ${cli.valor}</p>
         <p>Data: ${cli.data}</p>
-        </div>
+
+        <div class="deletes">
+        <button onclick="showModal('prof${cli.id}')" style="width: fit-content;">Editar</button>
+    
+        <button onclick="showModal('profs${cli.id}')" style="width: fit-content;">Deletar</button>
+         </div>
+
       `;
 
       // Adiciona o card ao container de cards
@@ -74,6 +96,33 @@ const tableBody = document.getElementById("dados");
 
 
 
+
+  function showModal(id) {
+    let modal 
+
+    document.getElementById(id).classList.remove("oculto");
+
+    modal.querySelector('.janela').style.animation = 'openModal 0.5s forwards';
+
+    setTimeout(() => {
+        dialog.style.animation = 'none';
+    }, 500);
+  }
+  
+
+  function hideModal(id) {
+    let modal
+
+    document.getElementById(id).classList.add("oculto");
+
+    modal.style.animation = 'closeModal 0.5s forwards';
+
+     
+    setTimeout(() => {
+        dialog.style.animation = 'none';
+        dialog.classList.add('oculto');
+    }, 500);
+  }
 
 
 
@@ -103,7 +152,7 @@ criarForm.addEventListener("submit", (e) => {
     }
     return res.json();
   })
-  .then((_res) => {
+  .then((res) => {
     mensagens("Cliente cadastrado com sucesso!");
     window.location.reload();
   })
@@ -211,7 +260,7 @@ function openDialog(e) {
 
     dialog.classList.remove('hidden');
 
-    dialog.querySelector('div').style.animation = 'openDialog 0.5s forwards';
+    dialog.querySelector('div').style.animation = 'openModal 0.5s forwards';
 
     setTimeout(() => {
         dialog.style.animation = 'none';
@@ -227,7 +276,7 @@ function closeDialog(e) {
         dialog = document.querySelector('.matriculaDialog');
     }
 
-    dialog.style.animation = 'closeDialog 0.5s forwards';
+    dialog.style.animation = 'closeModal 0.5s forwards';
 
 
     setTimeout(() => {

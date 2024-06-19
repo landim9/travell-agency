@@ -13,10 +13,11 @@
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="assets/pages/pontoturistico.html">Pontos Turisticos</a></li>
-            <li><a href="#">Hoteis</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="assets/pages/hoteis.html">Hoteis</a></li>
+            <li><a onclick="openDialog('contact')">Criar</a></li>
           </ul>
         </nav>
+        <!-- <button onclick="openDialog('contact')" class="criar">Criar Novos Destinos</button> -->
     </header>
 
     <main>
@@ -30,7 +31,6 @@
       <div class="dialog contactDialog hidden">
         <div class="dialog-content">
             <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
-            <!-- <h1>Pontos Turisticos</h1> -->
             <form action="" id="criar">
 
               <div class="input-group">
@@ -48,12 +48,14 @@
                 <label class="user-label">Data</label>
               </div>
 
-              <button type="submit">
-                Click me
+              <button type="submit" onclick="window.location.reload()">
+                Criar
             </button>
         </form>
         </div>
       </div>
+
+      
 
 
 
@@ -62,7 +64,7 @@
 </main>
 
     <footer>
-      <button onclick="openDialog('contact')"">Criar Novos Destinos</button>
+      
     </footer>
     
 </body>

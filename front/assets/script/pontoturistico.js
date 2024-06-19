@@ -21,11 +21,11 @@ const tableBody = document.getElementById("dados");
         <td>${cli.valor}</td>
     <td>
       <button onclick="showModal('prof${cli.id}')" style="width: fit-content;">*</button>
-      <div class="modal oculto" id="prof${cli.id}">
+      <div class="dialog modal oculto" id="prof${cli.id}">
         <div class="janela">
           <div class="modalCabecalho">
             <h3>Alterar dados do ponto turistico Id: ${cli.id}</h3>
-            <button onclick="hideModal('prof${cli.id}')">X</button>
+            <button onclick="hideModal('prof${cli.id}')" class="exit-dialog">X</button>
           </div>
         <form action="">
 
@@ -61,11 +61,11 @@ const tableBody = document.getElementById("dados");
     </td>
     <td>
       <button onclick="showModal('profs${cli.id}')" style="width: fit-content;">*</button>
-      <div class="modal oculto" id="profs${cli.id}">
-        <div class="janela">
+      <div class="modal dialog contactDialog oculto" id="profs${cli.id}">
+        <div class="janela dialog-content">
           <div class="modalCabecalho">
             <h3>Excluir dados do professor Id: ${cli.id}</h3>
-            <button onclick="hideModal('profs${cli.id}')">X</button>
+            <button onclick="hideModal('profs${cli.id}')" class="exit-dialog">X</button>
           </div>
           <form action="/professor/${cli.id}?_method=DELETE" method="POST">
             <div class="deletes">
@@ -77,7 +77,7 @@ const tableBody = document.getElementById("dados");
               </div>
             </div>
             <input type="hidden" name="id" value="${cli.id}">
-            <input type="submit" value="Deletar">
+            <button type="submit">Deletar</button>
           </form>
         </div>
       </div>

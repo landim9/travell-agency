@@ -49,7 +49,7 @@
 
             <div>
                 <div class="input-group">
-                    <input required="" type="text" name="cidade" autocomplete="off" class="input" value=${cli.id} >
+                    <input required="" type="text" name="cidade" autocomplete="off" class="input" >
                     <label class="user-label">Id do destino</label>
                   </div>
 
@@ -94,9 +94,8 @@
         <nav class="nav">
           <ul>
             <li><a href="../../index.html">Home</a></li>
-            <li><a href="assets/pages/pontoturistico.html">Pontos Turisticos</a></li>
-            <li><a href="#">Hoteis</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Pontos Turisticos</a></li>
+            <li><a href="hoteis.html">Hoteis</a></li>
           </ul>
         </nav>
     </header>
@@ -118,8 +117,11 @@
             <tbody id="dados">
             </tbody>
           </table>
-
     </main>
+
+    <footer>
+      <button onclick="openDialog('contact')"">Criar Novos Pontos Turisticos</button>
+    </footer>
     
 </body>
 <script src="../script/pontoturistico.js"></script>
