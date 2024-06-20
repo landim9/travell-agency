@@ -7,12 +7,63 @@
     <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
+
+  <div class="dialog contactDialog hidden">
+    <div class="dialog-content" style="height: fit-content;">
+      <div class="modalCabecalho">
+        <h2>Registrar novo hotel</h2>
+        <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
+      </div>
+        <div class="alter">
+          <form action="" id="criar">
+            <div class="input-group">
+              <input required="" type="text" name="id_destinos" autocomplete="off" class="input">
+              <label class="user-label">Id do destino</label>
+            </div>
+
+            <div class="input-group">
+              <input required="" type="text" name="nome" autocomplete="off" class="input">
+              <label class="user-label">Nome</label>
+            </div>
+
+            <div class="input-group">
+              <input required="" type="text" name="valor" autocomplete="off" class="input">
+              <label class="user-label">Valor</label>
+            </div>
+
+            <div class="input-group">
+              <input required="" type="text" name="avaliacao" autocomplete="off" class="input">
+              <label class="user-label">Avaliação</label>
+            </div>
+
+          
+            <div class="input-group">
+              <input required="" type="text" name="email" autocomplete="off" class="input">
+              <label class="user-label">Email</label>
+            </div>
+
+            <div class="input-group">
+              <input required="" type="text" name="site" autocomplete="off" class="input">
+              <label class="user-label">Site</label>
+            </div>
+
+            <button type="submit">Enviar</button>
+      </div>
+
+          </form>
+            
+
+    </div>
+  </div>
+
+
     <header>
         <nav class="nav">
           <ul>
-            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../index.html">Destinos</a></li>
             <li><a href="pontoturistico.html">Pontos Turisticos</a></li>
             <li><a href="#">Hoteis</a></li>
+            <li><a onclick="openDialog('contact')"">Criar</a></li>
           </ul>
         </nav>
     </header>

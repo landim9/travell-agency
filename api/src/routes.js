@@ -15,8 +15,8 @@ router.post('/destinos', destinos.create);
 router.get('/destinos', destinos.read);
 router.get('/destinos/id/:id', destinos.readById);
 router.get('/destinos/cidade/:cidade', destinos.readByCidade);
-router.delete('/destinos/id/:id', destinos.remove);
-router.put('/destinos/id/:id', destinos.update);
+router.delete('/destinos/:id', destinos.remove);
+router.put('/destinos/:id', destinos.update);
 
 
 //Hoteis

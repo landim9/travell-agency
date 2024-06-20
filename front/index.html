@@ -8,65 +8,51 @@
 </head>
 <body>
 
+  <div class="dialog contactDialog hidden">
+    <div class="dialog-content">
+      <h2>Registrar Novos Destinos</h2>
+        <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
+        <form action="" id="criar">
+
+          <div class="input-group">
+            <input required="" type="text" name="cidade" autocomplete="off" class="input">
+            <label class="user-label">cidade</label>
+          </div>
+
+          <div class="input-group">
+            <input required="" type="text" name="valor" autocomplete="off" class="input" >
+            <label class="user-label">Valor</label>
+          </div>
+
+          <div class="input-group">
+            <input required="" type="text" name="data" autocomplete="off" class="input" id="dataInput">
+            <label class="user-label">Data</label>
+          </div>
+
+          <button type="submit" onclick="window.location.reload()">
+            Criar
+        </button>
+    </form>
+    </div>
+  </div>
+
+
     <header>
         <nav class="nav">
           <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="#">Destinos</a></li>
             <li><a href="assets/pages/pontoturistico.html">Pontos Turisticos</a></li>
             <li><a href="assets/pages/hoteis.html">Hoteis</a></li>
             <li><a onclick="openDialog('contact')">Criar</a></li>
           </ul>
         </nav>
-        <!-- <button onclick="openDialog('contact')" class="criar">Criar Novos Destinos</button> -->
     </header>
-
-    <main>
-
+    <main class="destinos-main">
       <div id="cards-container">
           <div id="card" id="card-info">
           </div>
       </div>
-      </div>
-
-      <div class="dialog contactDialog hidden">
-        <div class="dialog-content">
-            <i class="bi bi-x-lg exit-dialog" onclick="closeDialog('contact')">X</i>
-            <form action="" id="criar">
-
-              <div class="input-group">
-                <input required="" type="text" name="cidade" autocomplete="off" class="input">
-                <label class="user-label">cidade</label>
-              </div>
-
-              <div class="input-group">
-                <input required="" type="text" name="valor" autocomplete="off" class="input" >
-                <label class="user-label">Valor</label>
-              </div>
-
-              <div class="input-group">
-                <input required="" type="text" name="data" autocomplete="off" class="input" id="dataInput">
-                <label class="user-label">Data</label>
-              </div>
-
-              <button type="submit" onclick="window.location.reload()">
-                Criar
-            </button>
-        </form>
-        </div>
-      </div>
-
-      
-
-
-
-    
-
 </main>
-
-    <footer>
-      
-    </footer>
-    
 </body>
 <script>
     document.getElementById('dataInput').addEventListener('input', function() {

@@ -1,10 +1,12 @@
 const uriTuristico = "http://localhost:3000/pontosturisticos";
 const tableBody = document.getElementById("dados");
 
-  fetch(uriTuristico)
+
+// READ - Pontos Turisticos
+fetch(uriTuristico)
    .then((res) => {
       if (!res.ok) {
-        throw new Error(`Erro ao obter destinos: ${res.status}`);
+        throw new Error(`Erro ao obter ponto turistico: ${res.status}`);
       }
       return res.json();
     })
@@ -21,11 +23,13 @@ const tableBody = document.getElementById("dados");
         <td>${cli.valor}</td>
     <td>
       <button onclick="showModal('prof${cli.id}')" style="width: fit-content;">*</button>
+
       <div class="dialog modal oculto" id="prof${cli.id}">
-        <div class="janela">
+        <div class="dialog-content">
+
           <div class="modalCabecalho">
             <h3>Alterar dados do ponto turistico Id: ${cli.id}</h3>
-            <button onclick="hideModal('prof${cli.id}')" class="exit-dialog">X</button>
+            <button onclick="hideModal('prof${cli.id}')" >X</button>
           </div>
         <form action="">
 
@@ -60,14 +64,16 @@ const tableBody = document.getElementById("dados");
         </div>
     </td>
     <td>
+
       <button onclick="showModal('profs${cli.id}')" style="width: fit-content;">*</button>
+
       <div class="modal dialog contactDialog oculto" id="profs${cli.id}">
-        <div class="janela dialog-content">
+        <div class="dialog-content">
           <div class="modalCabecalho">
             <h3>Excluir dados do professor Id: ${cli.id}</h3>
-            <button onclick="hideModal('profs${cli.id}')" class="exit-dialog">X</button>
+            <button onclick="hideModal('profs${cli.id}')" >X</button>
           </div>
-          <form action="/professor/${cli.id}?_method=DELETE" method="POST">
+          <form action="">
             <div class="deletes">
               <div class="delete">
                 <label for="">Nome: ${cli.nome}</label>
@@ -77,7 +83,7 @@ const tableBody = document.getElementById("dados");
               </div>
             </div>
             <input type="hidden" name="id" value="${cli.id}">
-            <button type="submit">Deletar</button>
+            <button type="submit" onclick="del(${cli.id}); window.location.reload()">Deletar</button>
           </form>
         </div>
       </div>
@@ -87,13 +93,135 @@ const tableBody = document.getElementById("dados");
       });
     })
    .catch((error) => {
-      console.error("Erro ao obter destinos:", error);
-      alert("Erro ao obter destinos!");
+      console.error("Erro ao obter ponto turistico:", error);
+      alert("Erro ao obter ponto turistico!");
     });
 
 
+// CREATE - Pontos Turisticos
 
-    const modal = document.querySelectorAll('.modal');
+const criarForm = document.getElementById("criar");
+
+criarForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = {
+    id_destinos: parseInt(criarForm.id_destinos.value, 10),
+    nome: criarForm.nome.value,
+    endereco: criarForm.endereco.value,
+    telefone: criarForm.telefone.value,
+    valor: criarForm.valor.value,
+  };
+
+  fetch(uriTuristico, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Erro ao cadastrar ponto turistico: " + res.status);
+    }
+    return res.json();
+  })
+  .then((res) => {
+    mensagens("ponto turistico cadastrado com sucesso!");
+  })
+  .catch((error) => {
+    console.error("Erro ao cadastrar ponto turistico:", error);
+    mensagens("Erro ao cadastrar ponto turistico!");
+  });
+  window.location.reload();
+});
+
+
+// UPDATE - Pontos Turisticos
+function update(id) {
+  const id_destinos = id_destinos.value
+  const nome = nome.value; 
+  const endereco = endereco.value; 
+  const telefone = data.value; 
+  const valor = valor.value;
+
+  const data = {
+    id_destinos: parseInt(criarForm.id_destinos.value, 10),
+    nome: nome.value,
+    endereco: endereco.value,
+    telefone: telefone.value,
+    valor: valor.value,
+  };
+
+  fetch(`${uriTuristico}/${id}`, {
+    method: 'PUT', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Erro ao atualizar ponto turistico: " + res.status);
+    }
+    return res;
+  })
+  .then(() => {
+    mensagens("ponto turistico atualizado com sucesso!");
+  })
+  .catch((error) => {
+    console.error("Erro ao atualizar ponto turistico:", error);
+    mensagens("Erro ao atualizar ponto turistico!");
+  });
+  window.location.reload();
+}
+
+// DELETE - Pontos Turisticos
+async function del(id) {
+  await fetch(`${uriTuristico}/${id}` , {
+    method: 'DELETE'
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw new Error("Erro ao excluir ponto turistico: " + res.status);
+    }
+    return res;
+  })
+  .then(() => {
+    mensagens("ponto turistico excluído com sucesso!");
+    window.location.reload();
+  })
+  .catch((error) => {
+    console.error("Erro ao excluir ponto turistico:", error);
+    mensagens("Erro ao excluir ponto turistico!");
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MODAL
+
+const modal = document.querySelectorAll('.modal');
 
     modal.forEach((modal) => {
         modal.addEventListener('click', (event) => {
@@ -101,8 +229,6 @@ const tableBody = document.getElementById("dados");
                 closemodal('contact');     
         });
     })
-
-
 
     function showModal(id) {
         let modal 
@@ -130,66 +256,6 @@ const tableBody = document.getElementById("dados");
             dialog.classList.add('oculto');
         }, 500);
       }
-
-
-      function update(btn) {
-        const row = btn.closest('tr');
-        const [cpfCell, nomeCell, enderecoCell, telefoneCell, valorCell] = row.cells;
-      
-        const data = {
-          id_destinos: cpfCell.innerText.trim(),
-          nome: nomeCell.innerText.trim(),
-          endereco: enderecoCell.innerText.trim(),
-          telefone: telefoneCell.innerText.trim(),
-          valor: valorCell.innerText.trim(),
-        };
-      
-        fetch(uri, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
-       .then(checkStatus)
-       .then(() => mensagens("Cliente atualizado com sucesso!"))
-       .catch(error => {
-          console.error("Erro ao atualizar cliente:", error);
-          mensagens("Erro ao atualizar cliente!");
-        });
-      }
-      
-      function checkStatus(response) {
-        if (!response.ok) {
-          throw new Error(`Erro ao atualizar cliente: ${response.status}`);
-        }
-        return response;
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     const dialog = document.querySelectorAll('.dialog');
@@ -241,3 +307,6 @@ const tableBody = document.getElementById("dados");
             dialog.classList.add('hidden');
         }, 500);
     }
+
+
+    loadTuristicoData(uri, document.getElementById('table-body'));
